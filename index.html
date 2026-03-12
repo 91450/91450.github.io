@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>91450</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+height:100vh;
+overflow:hidden;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:none;
+}
+
+/* VIDEO BACKGROUND */
+
+video{
+position:fixed;
+right:0;
+bottom:0;
+min-width:100%;
+min-height:100%;
+z-index:-2;
+object-fit:cover;
+}
+
+/* PARTICLES */
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* CURSOR FOLLOW EFFECT */
+
+.cursor{
+position:fixed;
+width:20px;
+height:20px;
+border-radius:50%;
+background:rgba(255,0,0,0.9);
+box-shadow:0 0 15px rgba(155, 10, 46, 0.8),
+           0 0 30px rgba(155, 10, 46, 0.8),
+           0 0 45px rgba(155, 10, 46, 0.8);
+pointer-events:none;
+transform:translate(-50%,-50%);
+transition:transform .05s linear;
+z-index:9999;
+}
+
+/* CARD */
+
+.card{
+width:340px;
+padding:40px;
+border-radius:20px;
+background:rgba(0,0,0,0.45);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.1);
+text-align:center;
+animation:fade 1.2s ease;
+transform-style:preserve-3d;
+transition:transform 0.25s cubic-bezier(.03,.98,.52,.99);
+will-change:transform;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+.avatar{
+width:110px;
+height:110px;
+border-radius:50%;
+border:3px solid rgb(97,94,94);
+margin-bottom:15px;
+}
+
+/* USERNAME */
+
+.username{
+font-size:26px;
+font-weight:700;
+background:linear-gradient(45deg,#ce0303,#1d1d1d);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+text-shadow:0 0 15px rgba(255,0,255,0.7);
+}
+
+.bio{
+font-size:14px;
+opacity:0.8;
+margin:10px 0 20px;
+}
+
+.links{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.link{
+text-decoration:none;
+color:white;
+padding:12px;
+border-radius:10px;
+background:rgba(255,255,255,0.08);
+transition:0.25s;
+}
+
+/* BUTTON HOVER EFFECT */
+
+.link:hover{
+background:rgba(255,255,255,0.2);
+transform:scale(1.07);
+box-shadow:0 0 15px rgba(255,0,0,0.5);
+}
+
+
+
+/* SPARKLE TRAIL */
+
+.sparkle{
+position:fixed;
+pointer-events:none;
+width:6px;
+height:6px;
+background:white;
+border-radius:50%;
+box-shadow:
+0 0 6px rgb(187, 186, 186),
+0 0 12px white,
+0 0 18px rgb(151, 151, 151);
+animation:sparkleFade 0.8s linear forwards;
+z-index:9999;
+}
+
+@keyframes sparkleFade{
+0%{
+opacity:1;
+transform:scale(1);
+}
+100%{
+opacity:0;
+transform:scale(0);
+}
+}
+
+/* ENTER SCREEN */
+#enter-screen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:10000;
+cursor:pointer;
+transition:opacity .6s ease;
+}
+
+.enter-text{
+color:white;
+font-size:28px;
+letter-spacing:3px;
+opacity:0.8;
+transition:0.3s;
+}
+
+.enter-text:hover{
+opacity:1;
+transform:scale(1.1);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ENTER SCREEN -->    
+<div id="enter-screen">
+<div class="enter-text">click to enter</div>
+</div>
+
+<!-- VIDEO BACKGROUND -->
+<video autoplay muted loop>
+<source src="background.mp4" type="video/mp4">
+</video>
+
+<!-- PARTICLES -->
+<div id="particles-js"></div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+
+<img class="avatar" src="avatar.png">
+
+<div class="username">91450</div>
+
+<p class="bio">
+are you efreaky?
+</p>
+
+<div class="links">
+
+<a class="link" href="https://discord.com/users/1222617181280403568">Discord</a>
+<a class="link" href="https://instagram.com/9.l450">Instagram</a>
+<a class="link" href="https://github.com/91450">GitHub</a>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+<script>
+
+/* SPARKLE CURSOR TRAIL */
+
+document.addEventListener("mousemove", e => {
+
+const sparkle = document.createElement("div");
+sparkle.className = "sparkle";
+
+sparkle.style.left = e.clientX + "px";
+sparkle.style.top = e.clientY + "px";
+
+document.body.appendChild(sparkle);
+
+setTimeout(() => {
+sparkle.remove();
+}, 800);
+
+});
+
+
+/*ENTER SCREEN*/
+
+const enterScreen = document.getElementById("enter-screen");
+const music = document.getElementById("music");
+
+enterScreen.addEventListener("click", () => {
+
+music.volume = 0.6;
+music.play();
+
+enterScreen.style.opacity = "0";
+
+setTimeout(() => {
+enterScreen.style.display = "none";
+}, 600);
+
+});
+
+
+<!-- CARD ANIMATION-->
+const card = document.querySelector(".card");
+
+card.addEventListener("mousemove", (e) => {
+
+const rect = card.getBoundingClientRect();
+
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+const centerX = rect.width / 2;
+const centerY = rect.height / 2;
+
+const rotateX = (y - centerY) / 15;
+const rotateY = (centerX - x) / 15;
+
+card.style.transform = `
+rotateX(${rotateX}deg)
+rotateY(${rotateY}deg)
+scale(1.03)
+`;
+
+});
+
+card.addEventListener("mouseleave", () => {
+card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+});
+
+
+</script>
+
+</body>
+</html>
