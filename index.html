@@ -268,14 +268,11 @@ card.addEventListener("mousemove", (e) => {
 
 const rect = card.getBoundingClientRect();
 
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
+const x = (e.clientX - rect.left) / rect.width;
+const y = (e.clientY - rect.top) / rect.height;
 
-const centerX = rect.width / 2;
-const centerY = rect.height / 2;
-
-const rotateX = (y - centerY) / 15;
-const rotateY = (centerX - x) / 15;
+const rotateX = (0.5 - y) * 15;
+const rotateY = (x - 0.5) * 15;
 
 card.style.transform = `
 rotateX(${rotateX}deg)
@@ -290,11 +287,13 @@ card.style.transform = "rotateX(0) rotateY(0) scale(1)";
 });
 
 
+
 </script>
 
 </body>
 
 </html>
+
 
 
 
