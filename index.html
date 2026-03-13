@@ -26,6 +26,7 @@ justify-content:center;
 cursor:none;
 }
 
+
 /* VIDEO BACKGROUND */
 
 video{
@@ -47,6 +48,7 @@ height:100%;
 z-index:-1;
 }
 
+
 /* CARD */
 
 .card{
@@ -62,6 +64,14 @@ transform-style:preserve-3d;
 transition:transform 0.25s cubic-bezier(.03,.98,.52,.99);
 will-change:transform;
 }
+
+.card:hover{
+box-shadow:
+0 0 25px rgba(255,255,255,0.2),
+0 0 60px rgba(255,255,255,0.05);
+}
+
+
 
 @keyframes fade{
 from{opacity:0;transform:translateY(20px);}
@@ -81,10 +91,17 @@ margin-bottom:15px;
 .username{
 font-size:26px;
 font-weight:700;
-background:linear-gradient(45deg,#ce0303,#1d1d1d);
+background:linear-gradient(45deg,#fc3d3d,#7a0505,#fc3d3d);
+background-size:200% 200%;
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-text-shadow:0 0 15px rgba(255,0,255,0.7);
+animation:gradientMove 4s linear infinite;
+text-shadow:0 0 15px rgba(255, 53, 53, 0.719);
+}
+
+@keyframes gradientMove{
+0%{background-position:0%}
+100%{background-position:200%}
 }
 
 .bio{
@@ -106,6 +123,25 @@ padding:12px;
 border-radius:10px;
 background:rgba(255,255,255,0.08);
 transition:0.25s;
+}
+
+/*TYPE TEXT FOR BIO*/
+
+#type-text{
+display:inline-block;
+min-width:160px;
+text-align:center;
+}
+
+#type-text::after{
+content:"|";
+margin-left:4px;
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%,50%,100%{opacity:1;}
+25%,75%{opacity:0;}
 }
 
 /* BUTTON HOVER EFFECT */
@@ -205,7 +241,7 @@ transform:scale(1.1);
 <div class="username">91450</div>
 
 <p class="bio">
-are you efreaky?
+<span id="type-text"></span>
 </p>
 
 <div class="links">
@@ -287,13 +323,61 @@ card.style.transform = "rotateX(0) rotateY(0) scale(1)";
 });
 
 
+// TYPING EFFECT
+
+// TYPING ROTATING TEXT
+
+const phrases = [
+"are you efreaky?",
+"help me...",
+"hey there pookie",
+"hello world - 91450"
+];
+
+const typeTarget = document.getElementById("type-text");
+
+let phraseIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeEffect(){
+
+const currentPhrase = phrases[phraseIndex];
+
+if(!deleting){
+
+typeTarget.textContent = currentPhrase.substring(0, charIndex + 1);
+charIndex++;
+
+if(charIndex === currentPhrase.length){
+deleting = true;
+setTimeout(typeEffect, 1400);
+return;
+}
+
+}
+
+else{
+
+typeTarget.textContent = currentPhrase.substring(0, charIndex - 1);
+charIndex--;
+
+if(charIndex === 0){
+deleting = false;
+phraseIndex = (phraseIndex + 1) % phrases.length;
+}
+
+}
+
+setTimeout(typeEffect, deleting ? 60 : 90);
+
+}
+
+typeEffect();
+
+
 
 </script>
 
 </body>
-
 </html>
-
-
-
-
